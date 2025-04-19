@@ -134,6 +134,7 @@ class Style {
     /** Whether or not to underline the text **/                                    @:optional public var fontUnderline:Null<Bool>;
     /** Whether or not this text should use the *italic* variation of its font **/  @:optional public var fontItalic:Null<Bool>;
     @:optional public var fontStrikeThrough:Null<Bool>;
+    @:optional public var lineHeight:Null<Float>;
 
     /** The mouse cursor: `default`, `pointer`, `row-resize`, `col-resize` **/     @:optional public var cursor:Null<String>;
                                                                                    @:optional public var cursorOffsetX:Null<Int>;
@@ -279,6 +280,9 @@ class Style {
 
                 case "color":
                     color = ValueTools.int(v.value);
+                
+                case "line-height":
+                    lineHeight = ValueTools.calcDimension(v.value);
 
                 case "background-color":
                     switch (v.value) {
@@ -691,6 +695,7 @@ class Style {
         if (s.fontUnderline != null) fontUnderline = s.fontUnderline;
         if (s.fontStrikeThrough != null) fontStrikeThrough = s.fontStrikeThrough;
         if (s.fontItalic != null) fontItalic = s.fontItalic;
+        if (s.lineHeight != null) lineHeight = s.lineHeight;
 
         if (s.animationName != null) animationName = s.animationName;
         if (s.animationOptions != null) {
@@ -850,6 +855,7 @@ class Style {
 
         if (s.fontName != fontName) return false;
         if (s.fontSize != fontSize) return false;
+        if (s.lineHeight!= lineHeight) return false;
         if (s.fontBold != fontBold) return false;
         if (s.fontWeight != fontWeight) return false;
         if (s.fontUnderline != fontUnderline) return false;
