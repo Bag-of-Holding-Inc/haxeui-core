@@ -28,6 +28,7 @@ class Window extends VBox implements Draggable {
     @:behaviour(Collapsable, true) public var collapsable:Bool;
     @:behaviour(Maximizable, true) public var maximizable:Bool;
     @:behaviour(Closable, true) public var closable:Bool;
+    public var resizable:Bool=true;
 
     @:behaviour(Maximized) public var maximized:Bool;
     @:behaviour(Minimized) public var minimized:Bool;
@@ -317,6 +318,7 @@ private class Builder extends CompositeBuilder {
         if (title == null) {
             title = new WindowTitle();
             title.registerEvent(MouseEvent.DBL_CLICK, function(_) {
+                if(!_window.maximizable) return;
                 if (_window.windowManager != null) {
                     if (_window.maximized) {
                         _window.windowManager.restoreWindow(_window); 
@@ -439,6 +441,9 @@ private class Builder extends CompositeBuilder {
 
     private function onMouseMove(e:MouseEvent) {
         if (_window.maximized) {
+            return;
+        }
+        if (!_window.resizable) {
             return;
         }
 
